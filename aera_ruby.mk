@@ -1,0 +1,36 @@
+# AERA Recovery device configuration for Redmi Note 12 Pro / Pro+ / Discovery 5G (ruby)
+
+# Screen & UI geometry (1080x2400 with center punch-hole camera)
+AERA_UI_ADAPTIVE_RESOLUTION := true
+AERA_SCREEN_H := 2400
+AERA_STATUS_H := 100
+AERA_STATUS_INDENT_LEFT := 48
+AERA_STATUS_INDENT_RIGHT := 48
+AERA_CLOCK_POS := 0
+AERA_ALLOW_DISABLE_NAVBAR := 0
+AERA_USE_GREEN_LED := 0
+
+# Partition & OTA helpers
+AERA_QUICK_BACKUP_LIST := /boot;/data;
+AERA_ENABLE_LPTOOLS := 1
+AERA_NO_TREBLE_COMPATIBILITY_CHECK := 1
+AERA_DYNAMIC_FULL_SIZE := 9126805504
+AERA_ENABLE_ALL_PARTITION_TOOLS := 1
+
+# Compression & prebuilt kernel
+AERA_USE_LZ4_COMPRESSION := 1
+AERA_FORCE_PREBUILT_KERNEL := 1
+
+# Data format & encryption helpers
+AERA_WIPE_METADATA_AFTER_DATAFORMAT := 1
+AERA_USE_DMCTL := 1
+
+# Flashlight
+AERA_FLASHLIGHT_ENABLE := 1
+AERA_FL_PATH1 := /tmp/flashlight
+
+# Battery HAL (MediaTek health HAL requires legacy sysfs fallback)
+AERA_USE_LEGACY_BATTERY_SERVICES := true
+
+# Root manager (set to 1 to bundle KernelSU / root manager modules)
+AERA_ENABLE_ROOT_MANAGER := 0
