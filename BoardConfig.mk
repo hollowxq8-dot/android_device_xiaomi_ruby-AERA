@@ -127,7 +127,6 @@ TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
 # System as root
 BOARD_HAS_NO_SELECT_BUTTON := true
 BOARD_SUPPRESS_SECURE_ERASE := true
-BOARD_BUILD_SYSTEM_ROOT_IMAGE := false
 
 # Android Verified Boot
 BOARD_AVB_ENABLE := true
