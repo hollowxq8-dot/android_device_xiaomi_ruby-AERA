@@ -11,8 +11,8 @@ $(call inherit-product, device/xiaomi/ruby/device.mk)
 # Inherit AERA-specific ruby settings
 $(call inherit-product, device/xiaomi/ruby/aera_ruby.mk)
 
-# Configure launch_with_vendor_ramdisk.mk
-$(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota/launch_with_vendor_ramdisk.mk)
+# Configure virtual AB OTA features
+$(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota/vabc_features.mk)
 
 # Configure emulated_storage.mk
 $(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)

@@ -85,12 +85,16 @@ PRODUCT_PACKAGES += \
 TARGET_RECOVERY_DEVICE_MODULES += \
     libkeymaster4 \
     libkeymaster41 \
+    libkeymaster4_1support \
+    libkeymaster_messages \
     libpuresoftkeymasterdevice \
     libtinyalsa
 
 RECOVERY_LIBRARY_SOURCE_FILES += \
     $(TARGET_OUT_SHARED_LIBRARIES)/libkeymaster4.so \
     $(TARGET_OUT_SHARED_LIBRARIES)/libkeymaster41.so \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libkeymaster4_1support.so \
+    $(TARGET_OUT_SHARED_LIBRARIES)/libkeymaster_messages.so \
     $(TARGET_OUT_SHARED_LIBRARIES)/libpuresoftkeymasterdevice.so \
     $(TARGET_OUT_SHARED_LIBRARIES)/libtinyalsa.so
 
