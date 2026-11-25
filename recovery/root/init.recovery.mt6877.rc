@@ -1,6 +1,20 @@
 import /init.microtrust.rc
 
 on init
+    # Boost all CPU cores and set performance governor for fast boot and responsive UI
+    write /sys/devices/system/cpu/cpufreq/policy0/scaling_governor performance
+    write /sys/devices/system/cpu/cpufreq/policy6/scaling_governor performance
+    write /sys/devices/system/cpu/cpu0/online 1
+    write /sys/devices/system/cpu/cpu1/online 1
+    write /sys/devices/system/cpu/cpu2/online 1
+    write /sys/devices/system/cpu/cpu3/online 1
+    write /sys/devices/system/cpu/cpu4/online 1
+    write /sys/devices/system/cpu/cpu5/online 1
+    write /sys/devices/system/cpu/cpu6/online 1
+    write /sys/devices/system/cpu/cpu7/online 1
+    write /dev/cpuset/foreground/cpus 0-7
+    write /dev/cpuset/top-app/cpus 0-7
+
     chmod 0777 /system/bin/variant-script.sh
     export LD_LIBRARY_PATH /system/lib64:/vendor/lib64:/vendor/lib64/hw:/system/lib64/hw
     mkdir /tmp/misc 0775 root root
@@ -16,7 +30,6 @@ on init
 
 on post-fs
     # Support A/B feature for EMMC and UFS boot region
-    wait /dev/block/sda 1
     symlink /dev/block/sda /dev/block/by-name/preloader_a
     symlink /dev/block/sdb /dev/block/by-name/preloader_b
 
@@ -80,6 +93,10 @@ service vibratorfeature-hal-service /system/bin/hw/vendor.xiaomi.hardware.vibrat
      seclabel u:r:recovery:s0
 
 on property:crypto.ready=1
+    write /sys/devices/system/cpu/cpufreq/policy0/scaling_governor performance
+    write /sys/devices/system/cpu/cpufreq/policy6/scaling_governor performance
+    write /sys/devices/system/cpu/cpu6/online 1
+    write /sys/devices/system/cpu/cpu7/online 1
     start keymaster-4-1-beanpod 
 
 on property:hwservicemanager.ready=true
@@ -106,6 +123,10 @@ on property:twrp.all.users.decrypted=true
     stop gatekeeper-1-0
 
 on boot
+    write /sys/devices/system/cpu/cpufreq/policy0/scaling_governor performance
+    write /sys/devices/system/cpu/cpufreq/policy6/scaling_governor performance
+    write /sys/devices/system/cpu/cpu6/online 1
+    write /sys/devices/system/cpu/cpu7/online 1
     start variant-script
     start boot-hal-1-2
     start health-hal-2-1

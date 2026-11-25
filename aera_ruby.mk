@@ -7,6 +7,7 @@ TW_THEME := portrait_xhdpi
 AERA_DEFAULT_THEME := amoled
 AERA_USE_BLACK_THEME := 1
 OF_USE_BLACK_THEME := 1
+AERA_INTERFACE_SIZE := 2
 AERA_SCREEN_H := 2400
 AERA_STATUS_H := 100
 AERA_STATUS_INDENT_LEFT := 48
@@ -36,6 +37,9 @@ AERA_FL_PATH1 := /tmp/flashlight
 
 # Battery HAL (MediaTek health HAL requires legacy sysfs fallback)
 AERA_USE_LEGACY_BATTERY_SERVICES := true
+
+# WLAN / Wi-Fi Integration (Disabled: MediaTek MT6877 connectivity requires full Android modem/power subsystem)
+AERA_ENABLE_WLAN := 0
 
 # Root manager (set to 1 to bundle KernelSU / root manager modules)
 AERA_ENABLE_ROOT_MANAGER := 0
