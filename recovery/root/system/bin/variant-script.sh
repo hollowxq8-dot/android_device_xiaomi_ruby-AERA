@@ -28,6 +28,7 @@ setdevicename() {
     resetprop "ro.build.product" "$1"
     resetprop "ro.product.system.device" "$1"
     resetprop "ro.product.system_ext.device" "$1"
+    resetprop "ro.product.mod_device" "$1"
 }
 
 

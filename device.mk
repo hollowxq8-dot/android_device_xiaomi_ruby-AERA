@@ -24,6 +24,7 @@ AB_OTA_PARTITIONS += \
     logo \
     mcupm \
     md1img \
+    mi_ext \
     odm \
     odm_dlkm \
     pi_img \

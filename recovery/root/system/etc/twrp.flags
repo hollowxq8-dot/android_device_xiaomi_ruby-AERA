@@ -13,7 +13,8 @@
 /vbmeta_vendor   emmc     /dev/block/by-name/vbmeta_vendor  flags=display="VBMeta_Vendor"
 
 /persist         ext4     /dev/block/by-name/persist        flags=display="Persist";backup=1
-/cust            ext4     /dev/block/by-name/cust           flags=display="Cust";flashimg=1
+/cust            ext4     /dev/block/by-name/cust           flags=display="Cust";backup=1;flashimg=1
+/mi_ext          ext4     /mi_ext                           flags=display="Mi_Ext";backup=1;logical;slotselect
 /boot_para       emmc     /dev/block/by-name/boot_para      flags=display="Boot_para"
 /logo            emmc     /dev/block/by-name/logo           flags=display="Logo"
 /misc            emmc     /dev/block/by-name/misc           flags=display="Misc"

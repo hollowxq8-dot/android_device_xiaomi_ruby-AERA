@@ -107,8 +107,10 @@ BOARD_MTK_DYNAMIC_PARTITIONS_PARTITION_LIST := \
         vendor \
         system_ext \
         product \
-        odm
+        odm \
+        mi_ext
 
+BOARD_MI_EXTIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_MTK_DYNAMIC_PARTITIONS_SIZE := 9122611200
 
 TARGET_COPY_OUT_VENDOR := vendor
