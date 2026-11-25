@@ -115,8 +115,8 @@ TARGET_COPY_OUT_VENDOR := vendor
 TARGET_COPY_OUT_PRODUCT := product
 TARGET_COPY_OUT_ODM := odm
 
-# make metadata directory in /
-BOARD_ROOT_EXTRA_FOLDERS += metadata
+# make metadata, persist and mnt/nas directory in /
+BOARD_ROOT_EXTRA_FOLDERS += metadata persist mnt/nas
 
 # Recovery
 TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888

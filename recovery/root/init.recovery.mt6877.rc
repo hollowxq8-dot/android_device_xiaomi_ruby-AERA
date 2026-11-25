@@ -5,6 +5,7 @@ on init
     export LD_LIBRARY_PATH /system/lib64:/vendor/lib64:/vendor/lib64/hw:/system/lib64/hw
     mkdir /tmp/misc 0775 root root
     mkdir /tmp/misc/keystore 0700 keystore keystore
+    mkdir /mnt/nas 0755 root root
     symlink /vendor/lib64/libTEECommon.so /system/lib64/libTEECommon.so
     symlink /vendor/lib64/libteei_daemon_vfs.so /system/lib64/libteei_daemon_vfs.so
     symlink /vendor/lib64/libimsg_log.so /system/lib64/libimsg_log.so
@@ -34,6 +35,10 @@ on post-fs
 
     symlink /dev/block/mapper/pl_a /dev/block/by-name/preloader_raw_a
     symlink /dev/block/mapper/pl_b /dev/block/by-name/preloader_raw_b
+
+    # Mount persist for AERA settings
+    mkdir /persist 0771 system system
+    mount ext4 /dev/block/by-name/persist /persist noatime nosuid nodev
 
 on property:ro.crypto.state=encrypted && property:ro.crypto.type=file
     install_keyring

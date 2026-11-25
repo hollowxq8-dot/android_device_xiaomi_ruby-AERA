@@ -12,7 +12,7 @@
 /vbmeta_system   emmc     /dev/block/by-name/vbmeta_system  flags=display="VBMeta_System"
 /vbmeta_vendor   emmc     /dev/block/by-name/vbmeta_vendor  flags=display="VBMeta_Vendor"
 
-/persist         emmc     /dev/block/by-name/persist        flags=display="Persist";backup=1;flashimg=1
+/persist         ext4     /dev/block/by-name/persist        flags=display="Persist";backup=1
 /cust            ext4     /dev/block/by-name/cust           flags=display="Cust";flashimg=1
 /boot_para       emmc     /dev/block/by-name/boot_para      flags=display="Boot_para"
 /logo            emmc     /dev/block/by-name/logo           flags=display="Logo"
@@ -49,4 +49,4 @@
 /otp             emmc     /dev/block/by-name/otp            flags=display="Otp"
 
 ## External Storage
-/usb_otg         auto     /dev/block/sdd1  /dev/block/sdd   flags=display="USB-OTG";storage;wipeingui;removable;backup=0
+/usb_otg         auto     /dev/block/sdd1  /dev/block/sdd /dev/block/sde1 /dev/block/sde /dev/block/sdf1 /dev/block/sdf   flags=display="USB-OTG";storage;wipeingui;removable;backup=0
