@@ -171,9 +171,15 @@ AERA_NO_FASTBOOT_BOOT := true
 AERA_USE_LEGACY_BATTERY_SERVICES := true
 AERA_USE_SERIALNO_PROPERTY_FOR_DEVICE_ID := true
 
-# Haptics (Xiaomi vibratorfeature AIDL HAL disabled due to missing libtinyalsa.so; direct kernel sysfs is used)
-AERA_SUPPORT_INPUT_AIDL_HAPTICS := false
-# AERA_SUPPORT_INPUT_AIDL_HAPTICS_FQNAME := "IVibrator/vibratorfeature"
+# Framerate
+AERA_FRAMERATE := 60
+TW_FRAMERATE := 60
+
+# Haptics (Xiaomi vibratorfeature AIDL HAL)
+AERA_SUPPORT_INPUT_AIDL_HAPTICS := true
+AERA_SUPPORT_INPUT_AIDL_HAPTICS_FQNAME := "IVibrator/vibratorfeature"
+TW_SUPPORT_INPUT_AIDL_HAPTICS := true
+TW_SUPPORT_INPUT_AIDL_HAPTICS_FQNAME := "IVibrator/vibratorfeature"
 
 # Debug tools
 AERA_INCLUDE_LOGCAT := true

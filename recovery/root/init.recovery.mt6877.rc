@@ -20,6 +20,7 @@ on init
     mkdir /tmp/misc 0775 root root
     mkdir /tmp/misc/keystore 0700 keystore keystore
     mkdir /mnt/nas 0755 root root
+    symlink /system/lib64/libtinyalsa.so /vendor/lib64/libtinyalsa.so
     symlink /vendor/lib64/libTEECommon.so /system/lib64/libTEECommon.so
     symlink /vendor/lib64/libteei_daemon_vfs.so /system/lib64/libteei_daemon_vfs.so
     symlink /vendor/lib64/libimsg_log.so /system/lib64/libimsg_log.so
@@ -50,6 +51,11 @@ on post-fs
     # Mount persist for AERA settings
     mkdir /persist 0771 system system
     mount ext4 /dev/block/by-name/persist /persist noatime nosuid nodev
+
+    # Boost UFS storage read ahead for fast partition mount and decryption
+    write /sys/block/sda/queue/read_ahead_kb 2048
+    write /sys/block/sdb/queue/read_ahead_kb 2048
+    write /sys/block/sdc/queue/read_ahead_kb 2048
 
 on property:ro.crypto.state=encrypted && property:ro.crypto.type=file
     install_keyring
@@ -130,7 +136,10 @@ on boot
     start variant-script
     start boot-hal-1-2
     start health-hal-2-1
-    # start vibratorfeature-hal-service
+    chmod 0666 /sys/class/leds/vibrator/activate
+    chmod 0666 /sys/class/leds/vibrator/duration
+    chmod 0666 /sys/class/leds/vibrator/state
+    start vibratorfeature-hal-service
     symlink /sys/class/leds/torch-light0 /sys/class/leds/flashlight
     chmod 0666 /sys/bus/i2c/drivers/aw8697_haptic/0-005a/activate
     chmod 0666 /sys/bus/i2c/drivers/aw8697_haptic/0-005a/duration
