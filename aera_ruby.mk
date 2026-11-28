@@ -2,6 +2,11 @@
 
 # Screen & UI geometry (1080x2400 with center punch-hole camera)
 AERA_UI_ADAPTIVE_RESOLUTION := true
+AERA_THEME := portrait_xhdpi
+TW_THEME := portrait_xhdpi
+AERA_DEFAULT_THEME := amoled
+AERA_USE_BLACK_THEME := 1
+OF_USE_BLACK_THEME := 1
 AERA_SCREEN_H := 2400
 AERA_STATUS_H := 100
 AERA_STATUS_INDENT_LEFT := 48

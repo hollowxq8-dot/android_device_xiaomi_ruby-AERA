@@ -28,6 +28,9 @@ if [ "$AERA_BUILD_DEVICE" = "$FDEVICE" ]; then
 	# Build metadata
 	export AERA_BUILD_TYPE="Stable"
 	export AERA_BUILD_STATUS="Unofficial"
+	export AERA_DEFAULT_THEME="amoled"
+	export AERA_USE_BLACK_THEME=1
+	export OF_USE_BLACK_THEME=1
 	unset AERA_VARIANT
 	unset AERA_MAINTAINER_PATCH_VERSION
 

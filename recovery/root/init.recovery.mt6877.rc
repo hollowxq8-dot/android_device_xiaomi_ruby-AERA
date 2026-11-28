@@ -16,11 +16,9 @@ on init
 
 on post-fs
     # Support A/B feature for EMMC and UFS boot region
-    wait /dev/block/mmcblk0boot0 2
-    symlink /dev/block/sda /dev/block/mmcblk0boot0
-    symlink /dev/block/sdb /dev/block/mmcblk0boot1
-    symlink /dev/block/mmcblk0boot0 /dev/block/by-name/preloader_a
-    symlink /dev/block/mmcblk0boot1 /dev/block/by-name/preloader_b
+    wait /dev/block/sda 1
+    symlink /dev/block/sda /dev/block/by-name/preloader_a
+    symlink /dev/block/sdb /dev/block/by-name/preloader_b
 
     symlink /dev/block/platform/bootdevice /dev/block/bootdevice
 

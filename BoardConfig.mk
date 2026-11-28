@@ -50,7 +50,7 @@ TARGET_BOOTLOADER_BOARD_NAME := ruby
 TARGET_NO_BOOTLOADER := true
 
 # Display
-TARGET_SCREEN_DENSITY := 440
+TARGET_SCREEN_DENSITY := 480
 
 # Kernel Configuration (MediaTek MT6877 LK requires gzip-compressed Image.gz)
 BOARD_KERNEL_BASE := 0x40078000
@@ -148,7 +148,8 @@ VENDOR_SECURITY_PATCH := $(PLATFORM_SECURITY_PATCH)
 
 # AERA Configuration
 AERA_FRAMERATE := 60
-AERA_THEME := portrait_hdpi
+AERA_THEME := portrait_xhdpi
+TW_THEME := portrait_xhdpi
 AERA_EXTRA_LANGUAGES := true
 AERA_DEFAULT_LANGUAGE := en
 AERA_INPUT_BLACKLIST := "hbtp_vm"
