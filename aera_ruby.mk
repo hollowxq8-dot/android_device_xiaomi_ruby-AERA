@@ -41,8 +41,16 @@ AERA_FL_PATH1 := /tmp/flashlight
 # Battery HAL (MediaTek health HAL requires legacy sysfs fallback)
 AERA_USE_LEGACY_BATTERY_SERVICES := true
 
-# WLAN / Wi-Fi Integration (Disabled: MediaTek MT6877 connectivity requires full Android modem/power subsystem)
-AERA_ENABLE_WLAN := 0
+# WLAN / Wi-Fi Integration
+AERA_ENABLE_WLAN := 1
+AERA_INCLUDE_WLAN := true
+AERA_INCLUDE_WIFI := true
+AERA_INCLUDE_WPA_SUPPLICANT := true
+
+# Audio & ALSA Subsystem
+AERA_INCLUDE_AUDIO := true
+AERA_INCLUDE_ALSA := true
+AERA_INCLUDE_AUDIO_BRIDGE := true
 
 # Root manager (set to 1 to bundle KernelSU / root manager modules)
 AERA_ENABLE_ROOT_MANAGER := 0

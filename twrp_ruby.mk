@@ -28,3 +28,20 @@ PRODUCT_MANUFACTURER := xiaomi
 TARGET_OTA_ASSERT_DEVICE := ruby,ruby_pro,rubypro,ruby_plus,rubyplus,rubyx
 
 PRODUCT_GMS_CLIENTID_BASE := android-$(PRODUCT_MANUFACTURER)
+
+# Wi-Fi & Network Packages
+PRODUCT_PACKAGES += \
+    wpa_supplicant \
+    wpa_cli \
+    wpa_supplicant.conf \
+    dhcpcd \
+    ip \
+    iw
+
+# Audio Packages & Utilities
+PRODUCT_PACKAGES += \
+    tinyalsa \
+    tinymix \
+    tinyplay \
+    tinycap \
+    libtinyalsa

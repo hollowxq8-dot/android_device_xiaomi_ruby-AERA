@@ -91,6 +91,22 @@ TARGET_RECOVERY_DEVICE_MODULES += \
     libpuresoftkeymasterdevice \
     libtinyalsa
 
+# Wi-Fi & Audio packages
+PRODUCT_PACKAGES += \
+    wpa_supplicant \
+    wpa_cli \
+    wpa_supplicant.conf \
+    tinyalsa \
+    tinymix \
+    tinyplay \
+    tinycap
+
+# Recovery product copy files
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/recovery/root/system/etc/wifi/wpa_supplicant.conf:recovery/root/system/etc/wifi/wpa_supplicant.conf \
+    $(LOCAL_PATH)/recovery/root/system/bin/wifi-service.sh:recovery/root/system/bin/wifi-service.sh \
+    $(LOCAL_PATH)/recovery/root/system/bin/aera-audio-bridge:recovery/root/system/bin/aera-audio-bridge
+
 RECOVERY_LIBRARY_SOURCE_FILES += \
     $(TARGET_OUT_SHARED_LIBRARIES)/libkeymaster4.so \
     $(TARGET_OUT_SHARED_LIBRARIES)/libkeymaster41.so \

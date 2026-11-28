@@ -1,5 +1,10 @@
 import /init.microtrust.rc
 
+on early-init
+    mkdir /dev/snd 0755 root audio
+    chmod 0660 /dev/snd/*
+    chown system audio /dev/snd/*
+
 on init
     # Boost all CPU cores and set performance governor for fast boot and responsive UI
     write /sys/devices/system/cpu/cpufreq/policy0/scaling_governor performance
@@ -16,6 +21,8 @@ on init
     write /dev/cpuset/top-app/cpus 0-7
 
     chmod 0777 /system/bin/variant-script.sh
+    chmod 0755 /system/bin/aera-audio-bridge
+    chmod 0755 /system/bin/wifi-service.sh
     export LD_LIBRARY_PATH /system/lib64:/vendor/lib64:/vendor/lib64/hw:/system/lib64/hw
     mkdir /tmp/misc 0775 root root
     mkdir /tmp/misc/keystore 0700 keystore keystore
@@ -28,6 +35,8 @@ on init
     symlink /vendor/lib64/hw/kmsetkey.beanpod.so /system/lib64/hw/kmsetkey.beanpod.so
     symlink /vendor/lib64/hw/displayfeature.default.so /system/lib64/hw/displayfeature.default.so
     symlink /vendor/bin/hw/vendor.xiaomi.hardware.vibratorfeature.service /system/bin/hw/vendor.xiaomi.hardware.vibratorfeature.service
+    symlink /vendor/bin/hw/wpa_supplicant /system/bin/wpa_supplicant
+    symlink /vendor/bin/hw/android.hardware.wifi-service /system/bin/hw/android.hardware.wifi-service
 
 on post-fs
     # Support A/B feature for EMMC and UFS boot region
@@ -47,6 +56,14 @@ on post-fs
 
     symlink /dev/block/mapper/pl_a /dev/block/by-name/preloader_raw_a
     symlink /dev/block/mapper/pl_b /dev/block/by-name/preloader_raw_b
+
+    # Permissions for Wi-Fi & Audio hardware
+    chmod 0660 /dev/wmtWifi
+    chown wifi wifi /dev/wmtWifi
+    chmod 0660 /dev/stpwmt
+    chown system system /dev/stpwmt
+    chmod 0660 /dev/snd/*
+    chown system audio /dev/snd/*
 
     # Mount persist for AERA settings
     mkdir /persist 0771 system system
@@ -117,16 +134,86 @@ on property:ro.crypto.state=unsupported
     stop teei_daemon
     stop keymaster-4-1-beanpod 
     stop gatekeeper-1-0
+    start aera-audio-bootstrap
     
 on property:ro.crypto.state=unencrypted
     stop teei_daemon    
     stop keymaster-4-1-beanpod 
     stop gatekeeper-1-0
+    start aera-audio-bootstrap
         
 on property:twrp.all.users.decrypted=true
     stop teei_daemon
     stop keymaster-4-1-beanpod 
     stop gatekeeper-1-0
+    start aera-audio-bootstrap
+
+# AERA Audio Bootstrap Service
+service aera-audio-bootstrap /system/bin/aera-audio-bridge --bootstrap
+    class main
+    user root
+    group root audio system
+    disabled
+    oneshot
+    seclabel u:r:recovery:s0
+
+# MediaTek WMT Connectivity Daemons
+service wmt_loader /vendor/bin/wmt_loader
+    class core
+    user root
+    group root system wifi
+    oneshot
+    disabled
+    seclabel u:r:recovery:s0
+
+service wmt_launcher /vendor/bin/wmt_launcher -p /vendor/firmware/
+    class core
+    user root
+    group root system wifi
+    oneshot
+    disabled
+    seclabel u:r:recovery:s0
+
+# Wi-Fi Initialization Orchestrator
+service mtk-wifi-init /system/bin/sh /system/bin/wifi-service.sh
+    class main
+    user root
+    group root wifi system
+    disabled
+    oneshot
+    seclabel u:r:recovery:s0
+
+service wifi-hal-service /vendor/bin/hw/android.hardware.wifi-service
+    class hal
+    capabilities NET_ADMIN NET_RAW SYS_MODULE
+    user root
+    group root wifi
+    disabled
+    oneshot
+    seclabel u:r:recovery:s0
+
+service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
+    -Dnl80211 -iwlan0 -c/vendor/etc/wifi/wpa_supplicant.conf \
+    -O/data/vendor/wifi/wpa/sockets \
+    class main
+    socket wpa_wlan0 dgram 660 wifi wifi
+    disabled
+    oneshot
+    seclabel u:r:recovery:s0
+
+on property:sys.aera.wlan.up=1
+    write /dev/wmtWifi "1"
+    start wmt_loader
+    start wmt_launcher
+    start mtk-wifi-init
+    start wifi-hal-service
+    start wpa_supplicant
+
+on property:sys.aera.wlan.up=0
+    stop wpa_supplicant
+    stop wifi-hal-service
+    stop mtk-wifi-init
+    write /dev/wmtWifi "0"
 
 on boot
     write /sys/devices/system/cpu/cpufreq/policy0/scaling_governor performance
@@ -136,6 +223,7 @@ on boot
     start variant-script
     start boot-hal-1-2
     start health-hal-2-1
+    start aera-audio-bootstrap
     chmod 0666 /sys/class/leds/vibrator/activate
     chmod 0666 /sys/class/leds/vibrator/duration
     chmod 0666 /sys/class/leds/vibrator/state
