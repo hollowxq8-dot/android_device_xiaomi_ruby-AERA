@@ -40,8 +40,7 @@ on fs
     #write /config/usb_gadget/g1/configs/b.1/MaxPower 500
     symlink /config/usb_gadget/g1/configs/b.1 /config/usb_gadget/g1/os_desc/b.1
     mount functionfs adb /dev/usb-ffs/adb uid=2000,gid=2000
-    # Legacy android_usb sysfs not available on ConfigFS-only kernels (MT6877)
-    #write /sys/class/android_usb/android0/f_ffs/aliases adb
+    # write /sys/class/android_usb/android0/f_ffs/aliases adb
 
 on property:sys.usb.config=none && property:sys.usb.configfs=1
     write /config/usb_gadget/g1/UDC "none"
@@ -54,8 +53,7 @@ on property:sys.usb.config=none && property:sys.usb.configfs=1
     rm /config/usb_gadget/g1/configs/b.1/f1
     rm /config/usb_gadget/g1/configs/b.1/f2
     #rmdir /config/usb_gadget/g1/functions/rndis.gs4
-    # Legacy mt_usb platform device path - may not exist on newer kernels
-    #write /sys/devices/platform/mt_usb/saving 0
+    write /sys/devices/platform/mt_usb/saving 0
     setprop sys.usb.state ${sys.usb.config}
 
 on property:sys.usb.ffs.ready=1 && property:sys.usb.config=adb && property:sys.usb.configfs=1
@@ -75,8 +73,8 @@ on property:sys.usb.config=mtp && property:sys.usb.configfs=1
     write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "mtp"
     rm /config/usb_gadget/g1/configs/b.1/f1
     rm /config/usb_gadget/g1/configs/b.1/f2
-    write /config/usb_gadget/g1/idVendor 0x22d9
-    write /config/usb_gadget/g1/idProduct 0x2764
+    write /config/usb_gadget/g1/idVendor 0x2717
+    write /config/usb_gadget/g1/idProduct 0xff40
     write /config/usb_gadget/g1/os_desc/use 1
     symlink /config/usb_gadget/g1/functions/mtp.gs0 /config/usb_gadget/g1/configs/b.1/f1
     write /config/usb_gadget/g1/UDC ${sys.usb.controller}
@@ -90,8 +88,8 @@ on property:sys.usb.ffs.ready=1 && property:sys.usb.config=mtp,adb && property:s
     write /config/usb_gadget/g1/configs/b.1/strings/0x409/configuration "mtp_adb"
     rm /config/usb_gadget/g1/configs/b.1/f1
     rm /config/usb_gadget/g1/configs/b.1/f2
-    write /config/usb_gadget/g1/idVendor 0x22d9
-    write /config/usb_gadget/g1/idProduct 0x2765
+    write /config/usb_gadget/g1/idVendor 0x2717
+    write /config/usb_gadget/g1/idProduct 0xff48
     write /config/usb_gadget/g1/os_desc/use 1
     symlink /config/usb_gadget/g1/functions/mtp.gs0 /config/usb_gadget/g1/configs/b.1/f1
     symlink /config/usb_gadget/g1/functions/ffs.adb /config/usb_gadget/g1/configs/b.1/f2

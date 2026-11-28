@@ -72,7 +72,8 @@ BOARD_KERNEL_CMDLINE := \
         bootopt=64S3,32N2,64N2 \
         androidboot.tee_type=2 \
         androidboot.selinux=permissive \
-        androidboot.init_fatal_reboot_target=recovery
+        androidboot.init_fatal_reboot_target=recovery \
+        androidboot.configfs=true
 
 BOARD_MKBOOTIMG_ARGS += \
         --kernel_offset $(BOARD_KERNEL_OFFSET) \
@@ -97,6 +98,7 @@ BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := f2fs
 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_ODMIMAGE_FILE_SYSTEM_TYPE := ext4
 
 BOARD_SUPER_PARTITION_SIZE := 9126805504
 BOARD_SUPER_PARTITION_GROUPS := mtk_dynamic_partitions
@@ -104,12 +106,14 @@ BOARD_MTK_DYNAMIC_PARTITIONS_PARTITION_LIST := \
         system \
         vendor \
         system_ext \
-        product 
+        product \
+        odm
 
 BOARD_MTK_DYNAMIC_PARTITIONS_SIZE := 9122611200
 
 TARGET_COPY_OUT_VENDOR := vendor
 TARGET_COPY_OUT_PRODUCT := product
+TARGET_COPY_OUT_ODM := odm
 
 # make metadata directory in /
 BOARD_ROOT_EXTRA_FOLDERS += metadata
@@ -150,7 +154,7 @@ AERA_DEFAULT_LANGUAGE := en
 AERA_INPUT_BLACKLIST := "hbtp_vm"
 AERA_USE_TOOLBOX := true
 TARGET_USES_MKE2FS := true
-AERA_EXCLUDE_DEFAULT_USB_INIT := true
+# AERA_EXCLUDE_DEFAULT_USB_INIT := true
 AERA_INCLUDE_LIBRESETPROP := true
 AERA_INCLUDE_REPACKTOOLS := true
 AERA_INCLUDE_RESETPROP := true
@@ -166,9 +170,9 @@ AERA_NO_FASTBOOT_BOOT := true
 AERA_USE_LEGACY_BATTERY_SERVICES := true
 AERA_USE_SERIALNO_PROPERTY_FOR_DEVICE_ID := true
 
-# Haptics (Xiaomi vibratorfeature AIDL HAL)
-AERA_SUPPORT_INPUT_AIDL_HAPTICS := true
-AERA_SUPPORT_INPUT_AIDL_HAPTICS_FQNAME := "IVibrator/vibratorfeature"
+# Haptics (Xiaomi vibratorfeature AIDL HAL disabled due to missing libtinyalsa.so; direct kernel sysfs is used)
+AERA_SUPPORT_INPUT_AIDL_HAPTICS := false
+# AERA_SUPPORT_INPUT_AIDL_HAPTICS_FQNAME := "IVibrator/vibratorfeature"
 
 # Debug tools
 AERA_INCLUDE_LOGCAT := true
